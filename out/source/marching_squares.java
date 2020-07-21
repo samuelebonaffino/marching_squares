@@ -15,20 +15,31 @@ import java.io.IOException;
 public class marching_squares extends PApplet {
 
 Field field;
+int t = 0;
 
 public void setup()
 {
     
     field = new Field();
-    field.generate();
 }
 
 public void draw()
 {
-    background(100);
-    field.drawPoints();
-    field.drawBounderies();
-    noLoop();
+    if(t%120 == 0)
+    {
+        background(100);
+        field.generate();
+        field.drawPoints();
+        field.drawBounderies();
+    }
+    updateTime();
+}
+
+public void updateTime()
+{
+    t += 1;
+    if(t > 3600)
+        t = 0;
 }
 class Field
 {

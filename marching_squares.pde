@@ -1,16 +1,27 @@
 Field field;
+int t = 0;
 
 void setup()
 {
     size(512, 512);
     field = new Field();
-    field.generate();
 }
 
 void draw()
 {
-    background(100);
-    field.drawPoints();
-    field.drawBounderies();
-    noLoop();
+    if(t%120 == 0)
+    {
+        background(100);
+        field.generate();
+        field.drawPoints();
+        field.drawBounderies();
+    }
+    updateTime();
+}
+
+void updateTime()
+{
+    t += 1;
+    if(t > 3600)
+        t = 0;
 }
