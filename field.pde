@@ -1,6 +1,6 @@
 class Field
 {
-    final static int SIZE = 32;
+    final static int SIZE = 8;
     int rows, cols;
     int[][] vertex;
 
@@ -37,13 +37,18 @@ class Field
         stroke(255, 150, 0);
         strokeWeight(2);
         for(int i = 0; i < rows-1; i++)
+        {
+            int y = i*SIZE;
             for(int j = 0; j < cols-1; j++)
             {
-                PVector a = new PVector(i*SIZE + SIZE*0.5, j*SIZE);
-                PVector b = new PVector(i*SIZE + SIZE, j*SIZE + SIZE*0.5);
-                PVector c = new PVector(i*SIZE + SIZE*0.5, j*SIZE + SIZE);
-                PVector d = new PVector(i*SIZE, j*SIZE + SIZE*0.5);
-                switch(getDecimalState(i, j)) 
+                int x = j*SIZE;
+                PVector a = new PVector(x + SIZE*0.5, y);
+                PVector b = new PVector(x + SIZE, y + SIZE*0.5);
+                PVector c = new PVector(x + SIZE*0.5, y + SIZE);
+                PVector d = new PVector(x, y + SIZE*0.5);
+                int state = getDecimalState(i, j);
+                printState(state, i, j);
+                switch(state) 
                 {
                     case 1:
                         lineV(b, c);
@@ -91,18 +96,31 @@ class Field
                         break;
                 }
             }
+        }
     }
     
-    void lineV(PVector v1, PVector v2)
+    void drawABCD(PVector a, PVector b, PVector c, PVector d)
+    {
+        int r = 10;
+        fill(255, 0, 0);
+        ellipse(a.x, a.y, r, r);
+        fill(0, 255, 0);
+        ellipse(b.x, b.y, r, r);
+        fill(0, 0, 255);
+        ellipse(c.x, c.y, r, r);
+        fill(255, 255);
+        ellipse(d.x, d.y, r, r);
+    }
+
+    void printState(int state, int i, int j)
+    {
+        println("ID: " + i + "/" + j + ", state: " + state);
+    }
+
+    void lineV(PVector v1, PVector v2) 
     {
         line(v1.x, v1.y, v2.x, v2.y);
     }
-    // String getStateBinary(int i, int j)
-    // {
-    //     if(i < rows - 1 && j < cols - 1)
-    //         return new String(vertex[i][j] + vertex[i][j+1] + vertex[i+1][j] + vertex[i+1][j+1]);
-    //     return "-";
-    // }
 
     int getDecimalState(int i, int j)
     {

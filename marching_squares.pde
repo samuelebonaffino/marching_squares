@@ -12,4 +12,5 @@ void draw()
     background(100);
     field.drawPoints();
     field.drawBounderies();
+    noLoop();
 }
